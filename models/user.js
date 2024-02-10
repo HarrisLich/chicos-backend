@@ -17,6 +17,10 @@ const UserSchema = new mongoose.Schema({
     marked: {
         type: Boolean,
         required: true
+    },
+    reffered: {
+        type: [String],
+        required: true
     }
 })
 
