@@ -17,7 +17,7 @@ router.post('/updateAccount', async (req, res) => {
     const user = req.body
     console.log(user)
     const newUser = await User.findByIdAndUpdate(user._id, { marked: user.marked })
-    console.log(newUser)
+    res.json({updated: true})
 })
 
 router.post('/submitRefferal', async (req, res) => {
