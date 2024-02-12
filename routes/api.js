@@ -17,7 +17,7 @@ router.post('/updateAccount', async (req, res) => {
     const user = req.body
     console.log(user)
     const newUser = await User.findByIdAndUpdate(user._id, { marked: user.marked })
-    res.json({updated: true})
+    res.json({ updated: true })
 })
 
 router.post('/submitRefferal', async (req, res) => {
@@ -33,7 +33,7 @@ router.post('/submitRefferal', async (req, res) => {
             //update
             await User.findByIdAndUpdate(a._id, { reffered: arr })
             res.json({ complete: true })
-        }else{
+        } else {
             console.log("already reffered")
             res.json({ complete: false })
         }
@@ -44,16 +44,16 @@ router.post('/submitRefferal', async (req, res) => {
     }
 })
 
-router.delete('/deleteRefferal', async (req,res)=>{
+router.delete('/deleteRefferal', async (req, res) => {
     const a = await User.findById(req.body.user)
     let arr = a.reffered
     const index = arr.indexOf(req.body.reffered)
     console.log(index)
-    if(index > -1){
+    if (index > -1) {
         arr.splice(index, 1)
     }
-    await User.findByIdAndUpdate(req.body.user, {reffered: arr})
-    
+    await User.findByIdAndUpdate(req.body.user, { reffered: arr })
+    res.status(200)
 })
 
 router.post("/accounts", async (req, res) => {
@@ -79,7 +79,7 @@ router.post("/register", async (req, res) => {
         })
         res.json({ complete: true })
     } catch (e) {
-        console.log(e)
+        res.json({ complete: false })
     }
 
 
@@ -106,9 +106,15 @@ router.post("/login", async (req, res) => {
 })
 
 router.delete("/deleteForm", async (req, res) => {
-    const id = req.body.val
-    console.log(id)
-    await Order.findByIdAndDelete(req.body.val)
+    try {
+        const id = req.body.val
+        console.log(id)
+        await Order.findByIdAndDelete(req.body.val)
+        res.status(200)
+    }catch(e){
+        res.stats(400)
+    }
+    
 })
 
 router.post("/submitForm", async (req, res) => {
@@ -154,7 +160,7 @@ router.post("/submitForm", async (req, res) => {
         })
         res.json({ complete: true })
     } catch (e) {
-        console.log(e)
+        res.json({complete: false})
     }
 })
 
