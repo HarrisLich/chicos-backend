@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
 })
 
 router.post("/orders", async (req, res) => {
-    let orders = await Order.find({}).subarray(req.body.startIndex, req.body.endIndex)
+    let orders = await Order.find({}).sort().splice(req.body.startIndex, req.body.endIndex)
     res.send(orders)
 })
 
