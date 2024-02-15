@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
 })
 
 router.post("/orders", async (req, res) => {
-    let orders = await Order.find({})
+    let orders = await Order.find({}).sort().limit(10)
     res.send(orders)
 })
 
