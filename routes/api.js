@@ -174,7 +174,7 @@ router.delete("/deleteAccount", async (req,res)=>{
     const user = req.body.username
     await Order.deleteMany({user: user})
     await User.deleteOne({username: user})
-    res.status(200)
+    res.json({complete: true})
 })
 
 module.exports = router
