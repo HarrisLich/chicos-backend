@@ -170,4 +170,11 @@ router.post("/findForm", async (req,res)=>{
     res.send(forms)
 })
 
+router.delete("/deleteAccount", async (req,res)=>{
+    const user = req.body.username
+    await Order.deleteMany({user: user})
+    await User.deleteOne({username: user})
+    res.status(200)
+})
+
 module.exports = router
