@@ -119,7 +119,6 @@ router.delete("/deleteForm", async (req, res) => {
 })
 
 router.post("/submitForm", async (req, res) => {
-    console.log("form submitted")
     const requests = req.body.requests
     const firstName = req.body.firstName
     const lastName = req.body.lastName
@@ -162,6 +161,7 @@ router.post("/submitForm", async (req, res) => {
         })
         res.json({ complete: true })
     } catch (e) {
+        console.log(e)
         res.json({complete: false})
     }
 })

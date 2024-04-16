@@ -8,7 +8,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 
 mongoose.set({strictQuery: false})
-mongoose.connect(process.env.dbString)
+mongoose.connect(process.env.harrisdbString)
 
 app.use(cors())
 app.use(bodyParser.json({limit: '50mb'}));
