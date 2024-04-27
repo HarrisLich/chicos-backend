@@ -11,8 +11,12 @@ router.get("/", (req, res) => {
 
 router.post("/orders", async (req, res) => {
     let orders = await Order.find({}).sort().skip(req.body.startIndex).limit(1)
-    console.log(typeof orders)
     res.send(orders)
+})
+
+router.post("/getorder", async (req,res)=> {
+    let order = await Order.find({}).sort().skip(req.body.startIndex).limit(1)
+    res.json(order)
 })
 
 router.post('/updateAccount', async (req, res) => {
