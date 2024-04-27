@@ -4,6 +4,7 @@ const { genPassword, validPassword } = require('../lib/passwordUtils')
 const User = require('../models/user')
 const Order = require('../models/order')
 
+
 router.get("/", (req, res) => {
     res.json({ msg: "test" })
 })
