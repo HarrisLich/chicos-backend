@@ -16,7 +16,7 @@ router.post("/orders", cors(), async (req, res) => {
 })
 
 router.post("/getorder", cors(), async (req,res)=> {
-    res.send(req.body.startIndex)
+    res.json({startIndex: req.body.startIndex})
 })
 
 router.post('/updateAccount', cors(), async (req, res) => {
