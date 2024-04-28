@@ -3,29 +3,30 @@ const router = express.Router()
 const { genPassword, validPassword } = require('../lib/passwordUtils')
 const User = require('../models/user')
 const Order = require('../models/order')
+const cors = require('cors')
 
 
 router.get("/", (req, res) => {
     res.json({ msg: "test" })
 })
 
-router.post("/orders", async (req, res) => {
+router.post("/orders", cors(), async (req, res) => {
     let orders = await Order.find({}).sort().skip(req.body.startIndex).limit(1)
     res.send(orders)
 })
 
-router.post("/getorder", async (req,res)=> {
+router.post("/getorder", cors(), async (req,res)=> {
     res.send(req.body.startIndex)
 })
 
-router.post('/updateAccount', async (req, res) => {
+router.post('/updateAccount', cors(), async (req, res) => {
     const user = req.body
     console.log(user)
     const newUser = await User.findByIdAndUpdate(user._id, { marked: user.marked })
     res.json({ updated: true })
 })
 
-router.post('/submitRefferal', async (req, res) => {
+router.post('/submitRefferal', cors(), async (req, res) => {
     const user = req.body.user
     const refferal = req.body.refferal
     const a = await User.findOne({ username: user })
@@ -49,7 +50,7 @@ router.post('/submitRefferal', async (req, res) => {
     }
 })
 
-router.delete('/deleteRefferal', async (req, res) => {
+router.delete('/deleteRefferal', cors(), async (req, res) => {
     const a = await User.findById(req.body.user)
     let arr = a.reffered
     const index = arr.indexOf(req.body.reffered)
@@ -61,12 +62,12 @@ router.delete('/deleteRefferal', async (req, res) => {
     res.status(200)
 })
 
-router.post("/accounts", async (req, res) => {
+router.post("/accounts", cors(), async (req, res) => {
     let users = await User.find({})
     res.send(users)
 })
 
-router.post("/register", async (req, res) => {
+router.post("/register", cors(), async (req, res) => {
     try {
         const data = req.body
         const password = genPassword(data.password)
@@ -90,7 +91,7 @@ router.post("/register", async (req, res) => {
 
 })
 
-router.post("/login", async (req, res) => {
+router.post("/login", cors(), async (req, res) => {
     const data = req.body
     const password = data.password
     const username = data.username
@@ -110,7 +111,7 @@ router.post("/login", async (req, res) => {
     }
 })
 
-router.delete("/deleteForm", async (req, res) => {
+router.delete("/deleteForm", cors(), async (req, res) => {
     try {
         const id = req.body.val
         console.log(id)
@@ -122,7 +123,7 @@ router.delete("/deleteForm", async (req, res) => {
     
 })
 
-router.post("/submitForm", async (req, res) => {
+router.post("/submitForm", cors(), async (req, res) => {
     const requests = req.body.requests
     const firstName = req.body.firstName
     const lastName = req.body.lastName
@@ -170,12 +171,12 @@ router.post("/submitForm", async (req, res) => {
     }
 })
 
-router.post("/findForm", async (req,res)=>{
+router.post("/findForm", cors(), async (req,res)=>{
     let forms = await Order.findOne({user: req.body.username})
     res.send(forms)
 })
 
-router.delete("/deleteAccount", async (req,res)=>{
+router.delete("/deleteAccount", cors(), async (req,res)=>{
     const user = req.body.username
     await Order.deleteMany({user: user})
     await User.deleteOne({username: user})
