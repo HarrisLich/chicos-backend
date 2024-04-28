@@ -17,6 +17,7 @@ router.post("/orders", cors(), async (req, res) => {
 
 router.post("/getorder", cors(), async (req,res)=> {
     let order = await Order.find({}).sort().skip(req.body.startIndex).limit(1)
+    console.log(order)
     res.json(order)
 })
 
